@@ -33,7 +33,7 @@ public class ClickEventHandler {
 
 	@SubscribeEvent
 	public void onClick(PlayerInteractEvent event) {
-		if (ModulePortacart.cartSlots.length > 0 &&  event.world.isRemote && event.entityPlayer != null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.isSneaking()) {
+		if (ModulePortacart.cartSlots.length > 0 && event.world.isRemote && event.entityPlayer != null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.isSneaking()) {
 			double dist = event.entityPlayer.getDistance(event.x + 0.5D, event.y + 0.5D, event.z + 0.5D);
 			if (dist <= 1.5D) {
 				Block block = event.world.getBlock(event.x, event.y, event.z);

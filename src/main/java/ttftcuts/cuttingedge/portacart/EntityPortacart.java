@@ -32,10 +32,9 @@ public class EntityPortacart extends EntityMinecart implements ILinkableCart {
 		
 		if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)riddenByEntity;
-			
 			for(int slotIndex : ModulePortacart.cartSlots) {
 				ItemStack cart = BaublesApi.getBaubles(player).getStackInSlot(slotIndex);
-				if (cart == null || cart.getItem() instanceof ItemPortacart) {
+				if (cart != null && cart.getItem() instanceof ItemPortacart) {
 					return;
 				}
 			}

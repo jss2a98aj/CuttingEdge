@@ -35,6 +35,10 @@ public class ModuleTacos extends Module {
 		super("tacos");
 	}
 
+	public boolean shouldLoad() {
+		return false;
+	}
+
 	@Override
 	public void configure(Configuration config) {
 		

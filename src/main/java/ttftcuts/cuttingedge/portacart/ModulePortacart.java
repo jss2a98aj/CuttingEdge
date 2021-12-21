@@ -2,6 +2,7 @@ package ttftcuts.cuttingedge.portacart;
 
 import java.util.List;
 
+import baubles.api.expanded.BaubleExpandedSlots;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -22,6 +23,8 @@ import ttftcuts.cuttingedge.util.EntityUtil;
 import ttftcuts.cuttingedge.util.NetworkUtil;
 
 public class ModulePortacart extends Module {
+	public static final String cartType = "cart";
+	protected static int[] cartSlots;
 	public static Item portacart;
 	
 	public ModulePortacart() {
@@ -45,6 +48,9 @@ public class ModulePortacart extends Module {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
+		BaubleExpandedSlots.tryRegisterType(cartType);
+		BaubleExpandedSlots.tryAssignSlotsUpToMinimum(cartType, 1);
+		
 		portacart = new ItemPortacart();
 		GameRegistry.registerItem(portacart, "portacart");
 		
@@ -89,7 +95,7 @@ public class ModulePortacart extends Module {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		
+		cartSlots = BaubleExpandedSlots.getIndexesOfAssignedSlotsOfType(cartType);
 	}
 
 	@Override

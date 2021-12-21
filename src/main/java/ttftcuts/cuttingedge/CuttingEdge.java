@@ -22,7 +22,7 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = CuttingEdge.MOD_ID, name = "Cutting Edge", version = "$GRADLEVERSION")
+@Mod(modid = CuttingEdge.MOD_ID, name = "Cutting Edge", version = "1.0.0")
 public class CuttingEdge {
 
     public static final String MOD_ID = "cuttingedge";
@@ -66,7 +66,9 @@ public class CuttingEdge {
     	} catch (Exception e) {
     		logger.error("Could not load config.");
     	} finally {
-    		config.save();
+    		if(config.hasChanged()) {
+    			config.save();
+    		}
     	}
 
     	proxy.preInit(event);

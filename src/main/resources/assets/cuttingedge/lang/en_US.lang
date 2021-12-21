@@ -1,6 +1,6 @@
 item.portacart.name=Compact Collapsible PortaCart
-item.portacart.desc=Bauble: Equipped in the belt slot.
-item.portacart.desc2=Crouch-right-click tracks to deploy.
+item.portacart.desc=§b%action%§7 and use §b%key%§7 on tracks while equipped to deploy.
+slot.cart=§aCart§7
 
 item.treetap.sapbucket.rubber.name=Rubber Sap Bucket
 item.treetap.sapbucket.maple.name=Maple Sap Bucket

@@ -22,7 +22,7 @@ public class ClickEventHandler {
 		sneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
 		unpressMethod = ReflectionHelper.findMethod(KeyBinding.class, sneak, new String[]{"unpressKey", "func_74505_d", "j"});
 	}
-	
+
 	private void unpressSneak() {
 		try {
 			unpressMethod.invoke(sneak);
@@ -30,23 +30,27 @@ public class ClickEventHandler {
 			CuttingEdge.logger.warn(e);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onClick(PlayerInteractEvent event) {
-		if (event.world.isRemote && event.entityPlayer != null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.isSneaking()) {
-			double dist = event.entityPlayer.getDistance(event.x + 0.5, event.y + 0.5, event.z + 0.5);
-			if (dist <= 1.5) {
+		if (ModulePortacart.cartSlots.length > 0 &&  event.world.isRemote && event.entityPlayer != null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.isSneaking()) {
+			double dist = event.entityPlayer.getDistance(event.x + 0.5D, event.y + 0.5D, event.z + 0.5D);
+			if (dist <= 1.5D) {
 				Block block = event.world.getBlock(event.x, event.y, event.z);
-				if (block instanceof BlockRailBase){
-					ItemStack belt = BaublesApi.getBaubles(event.entityPlayer).getStackInSlot(3);
-					if (belt != null && belt.getItem() instanceof ItemPortacart) {
-						unpressSneak();
-						event.entityPlayer.setSneaking(false);
-						NetworkUtil.INSTANCE.sendToServer(new PortacartMessage(event.x, event.y, event.z));
-						event.setCanceled(true);
+				if (block instanceof BlockRailBase) {
+					for(int slotIndex : ModulePortacart.cartSlots) {
+						ItemStack cart = BaublesApi.getBaubles(event.entityPlayer).getStackInSlot(slotIndex);
+						if (cart != null && cart.getItem() instanceof ItemPortacart) {
+							unpressSneak();
+							event.entityPlayer.setSneaking(false);
+							NetworkUtil.INSTANCE.sendToServer(new PortacartMessage(event.x, event.y, event.z));
+							event.setCanceled(true);
+							break;
+						}
 					}
 				}
 			}
 		}
 	}
+
 }
